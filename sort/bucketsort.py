@@ -3,6 +3,8 @@ def swap(arr,i,j):
     arr[i] = arr[j]
     arr[j] = temp 
 
+
+# making sure first elements is sorted
 def insertionsort(arr):
     for i in range(1,len(arr)):
         j = i
