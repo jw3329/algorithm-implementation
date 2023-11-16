@@ -3,6 +3,8 @@ def swap(arr, i, j):
 
 
 def partition(arr, left, right):
+    global count
+    count += 1
     index = random.randint(left, right)
     pivot = arr[index]
     i = left
@@ -24,7 +26,6 @@ def quickselect(arr, k):
     right = len(arr) - 1
     while left <= right:
         low, high = partition(arr, left, right)
-        print(arr)
         if k < low:
             right = low - 1
         elif k > high:
@@ -46,9 +47,43 @@ def quicksort(arr):
     return arr
 
 
+def merge_sort(arr):
+    def helper(left, right):
+        if left >= right:
+            return arr[left : right + 1]
+        mid = left + (right - left) // 2
+        left_sorted = helper(left, mid)
+        right_sorted = helper(mid + 1, right)
+        res = []
+        i = j = 0
+        while i < len(left_sorted) and j < len(right_sorted):
+            if left_sorted[i] < right_sorted[j]:
+                res.append(left_sorted[i])
+                i += 1
+            else:
+                res.append(right_sorted[j])
+                j += 1
+        while i < len(left_sorted):
+            res.append(left_sorted[i])
+            i += 1
+        while j < len(right_sorted):
+            res.append(right_sorted[j])
+            j += 1
+        return res
+
+    return helper(0, len(arr) - 1)
+
+
 import random
 
 arr = [i for i in range(10000)]
 
+count = 0
 print(quickselect(arr, 3543))
+print(count)
+arr = [random.randint(0, 10000) for i in range(10000)]
+count = 0
 print(quicksort(arr))
+print(count)
+arr = [random.randint(0, 10000) for i in range(10000)]
+print(merge_sort(arr))
